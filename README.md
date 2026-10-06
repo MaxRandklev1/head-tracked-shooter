@@ -10,7 +10,11 @@ Seven armed bots fight you and each other. They cannot see or shoot through tall
 
 **This is a webcam game. There is no keyboard or mouse substitute for the head.** If no face is being tracked, the game does not start, and if your face leaves the picture mid-match everything freezes until it is back.
 
-## Run it
+## Play it
+
+**https://maxrandklev1.github.io/head-tracked-shooter/** (Chrome or Edge, with a webcam).
+
+## Run it locally
 
 Needs [Node.js](https://nodejs.org) 20 or newer, a webcam, and a Chromium-based browser (Chrome or Edge).
 
@@ -49,6 +53,10 @@ Wherever your head is when you click in counts as standing straight.
 - A One Euro filter smooths the tracking, and a short velocity prediction hides camera latency.
 
 `src/game.js` is the game, `src/tracker.js` the webcam tracking, `src/filter.js` the smoothing, `src/main.js` the glue.
+
+## Deploy
+
+`npm run deploy` builds the game and pushes the build to the `gh-pages` branch, which GitHub Pages serves.
 
 ## Test
 

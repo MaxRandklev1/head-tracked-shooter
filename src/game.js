@@ -14,7 +14,8 @@ const PLAYER_RADIUS = 0.4;
 const HEAD_RADIUS = 0.2;
 const BOT_NAMES = ["Red", "Orange", "Lime", "Cyan", "Violet", "Pink", "Gold"];
 const BOT_COLORS = [0xe5484d, 0xf08c2e, 0x8ac926, 0x2ec4d6, 0x8f6bff, 0xff7ab8, 0xe8c547];
-const ASSETS = "/models/game/";
+// Relative to wherever the page is hosted.
+const ASSETS = `${import.meta.env.BASE_URL}models/game/`;
 const WALL_SEGMENT = 4; // length of one arena_wall.glb tile, meters
 
 function mulberry32(seed) {

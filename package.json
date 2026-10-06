@@ -8,7 +8,8 @@
     "dev": "vite",
     "build": "vite build",
     "preview": "vite preview",
-    "test": "node tools/test.mjs"
+    "test": "node tools/test.mjs",
+    "deploy": "node tools/deploy.mjs"
   },
   "dependencies": {
     "@mediapipe/tasks-vision": "^1.1.0",
@@ -18,5 +19,6 @@
   "devDependencies": {
     "puppeteer-core": "^25.12.0",
     "vite": "^8.3.3"
-  }
+  },
+  "homepage": "https://maxrandklev1.github.io/head-tracked-shooter/"
 }

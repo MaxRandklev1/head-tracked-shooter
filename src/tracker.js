@@ -24,9 +24,11 @@ export class FaceTracker {
 
   async init() {
     this.status = "loading model";
-    const fileset = await FilesetResolver.forVisionTasks("/mediapipe");
+    // Resolved against the page address, so it works from any hosting path.
+    const base = new URL(`${import.meta.env.BASE_URL}mediapipe`, document.baseURI).href;
+    const fileset = await FilesetResolver.forVisionTasks(base);
     const options = (delegate) => ({
-      baseOptions: { modelAssetPath: "/mediapipe/face_landmarker.task", delegate },
+      baseOptions: { modelAssetPath: `${base}/face_landmarker.task`, delegate },
       runningMode: "VIDEO",
       numFaces: 1,
       outputFacialTransformationMatrixes: true,
