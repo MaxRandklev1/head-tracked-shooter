@@ -37,6 +37,7 @@ Open the address it prints (http://localhost:5173/), allow the camera, sit where
 | Shift | Sprint |
 | Space | Jump |
 | C | Recenter: your current head position becomes "standing straight" |
+| V | Big webcam view on / off (for demos: stays on screen while you play) |
 | Esc | Release the mouse and pause |
 
 Wherever your head is when you click in counts as standing straight.

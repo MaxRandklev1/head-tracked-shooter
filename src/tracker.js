@@ -173,10 +173,9 @@ export class FaceTracker {
     return (2 * Math.atan(w / 2 / f) * 180) / Math.PI;
   }
 
-  drawPreview(canvas) {
+  drawPreview(canvas, cw = 280) {
     const video = this.video;
     if (!video.videoWidth) return;
-    const cw = 280;
     const ch = Math.round((cw * video.videoHeight) / video.videoWidth);
     if (canvas.width !== cw || canvas.height !== ch) {
       canvas.width = cw;
@@ -191,11 +190,12 @@ export class FaceTracker {
     const lm = this.lastLandmarks;
     if (lm) {
       g.fillStyle = "#3f8";
-      for (let i = 0; i < lm.length; i += 6) g.fillRect(lm[i].x * cw - 1, lm[i].y * ch - 1, 2, 2);
+      const dot = cw > 400 ? 3 : 2;
+      for (let i = 0; i < lm.length; i += 6) g.fillRect(lm[i].x * cw - dot / 2, lm[i].y * ch - dot / 2, dot, dot);
       g.fillStyle = "#f44";
       for (const i of [LEFT_IRIS, RIGHT_IRIS]) {
         g.beginPath();
-        g.arc(lm[i].x * cw, lm[i].y * ch, 4, 0, Math.PI * 2);
+        g.arc(lm[i].x * cw, lm[i].y * ch, cw > 400 ? 8 : 4, 0, Math.PI * 2);
         g.fill();
       }
     }

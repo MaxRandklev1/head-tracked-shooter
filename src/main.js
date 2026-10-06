@@ -20,6 +20,7 @@ const params = {
   shooterTurn: 1.5,
   gameFov: 75,
   showPreview: true,
+  bigPreview: false,
 };
 try {
   Object.assign(params, JSON.parse(localStorage.getItem(STORAGE_KEY) || "{}"));
@@ -99,6 +100,12 @@ const actions = {
   camera: "",
   fullscreen: () => (document.fullscreenElement ? document.exitFullscreen() : document.documentElement.requestFullscreen()),
   restart: () => startCamera(actions.camera || undefined),
+  // For demos: a large webcam view that stays up while you play, so people
+  // watching can see the head movement driving the game.
+  bigPreview: () => {
+    params.bigPreview = !params.bigPreview;
+    save();
+  },
 };
 gui.add(actions, "fullscreen").name("fullscreen");
 let cameraController = gui.add(actions, "camera", { default: "" }).name("webcam");
@@ -107,6 +114,7 @@ gui.add(params, "shooterLean", 0.5, 8, 0.25).name("lean amount");
 gui.add(params, "shooterTurn", 0, 6, 0.25).name("head turn amount");
 gui.add(params, "gameFov", 50, 110, 1).name("field of view");
 gui.add(params, "showPreview").name("show webcam when paused");
+gui.add(actions, "bigPreview").name("big webcam view on / off  (V)");
 const fTrack = gui.addFolder("Tracking");
 fTrack.add(params, "minCutoff", 0.2, 6, 0.1).name("smoothing at rest (Hz)");
 fTrack.add(params, "beta", 0, 60, 1).name("responsiveness");
@@ -125,6 +133,7 @@ async function refreshCameraList() {
 window.addEventListener("keydown", (e) => {
   if (e.target instanceof HTMLInputElement) return;
   if (e.code === "KeyF") actions.fullscreen();
+  if (e.code === "KeyV") actions.bigPreview();
 });
 // While the mouse is captured by the game, get the panel out of the way.
 document.addEventListener("pointerlockchange", () => gui.show(!document.pointerLockElement));
@@ -157,12 +166,17 @@ function frame(now) {
   camera.updateProjectionMatrix();
   renderer.render(scene, camera);
 
+  const paused = !document.pointerLockElement;
+  // The big view stays up during play and redraws every frame; the small one
+  // is only a positioning aid while paused.
+  const big = params.bigPreview && !!tracker.stream;
+  const showPreview = big || (paused && params.showPreview && !!tracker.stream);
+  if (big) tracker.drawPreview(preview, 720);
   if (now - uiTimer > 100) {
     uiTimer = now;
-    const paused = !document.pointerLockElement;
-    const showPreview = paused && params.showPreview && !!tracker.stream;
     preview.classList.toggle("hidden", !showPreview);
-    if (showPreview) tracker.drawPreview(preview);
+    preview.classList.toggle("big", big);
+    if (showPreview && !big) tracker.drawPreview(preview);
     status.classList.toggle("hidden", !paused);
     status.textContent = cameraError
       ? `webcam: ${cameraError}`
