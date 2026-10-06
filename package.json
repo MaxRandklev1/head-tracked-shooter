@@ -1,0 +1,22 @@
+{
+  "name": "head-tracked-shooter",
+  "version": "1.0.0",
+  "private": true,
+  "type": "module",
+  "description": "A free-for-all arena shooter where your webcam tracks your head: lean to peek around cover, turn to look around.",
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "preview": "vite preview",
+    "test": "node tools/test.mjs"
+  },
+  "dependencies": {
+    "@mediapipe/tasks-vision": "^1.1.0",
+    "lil-gui": "^0.21.0",
+    "three": "^0.186.1"
+  },
+  "devDependencies": {
+    "puppeteer-core": "^25.12.0",
+    "vite": "^8.3.3"
+  }
+}
