@@ -1,0 +1,16 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Head-Tracked Shooter</title>
+    <style>html,body{background:#000;height:100%;margin:0;font-family:ui-monospace,Consolas,monospace;overflow:hidden}canvas#view{width:100%;height:100%;display:block;position:fixed;inset:0}#status{color:#9fd;pointer-events:none;background:#0000008c;border-radius:6px;padding:6px 10px;font-size:12px;position:fixed;bottom:10px;left:10px}#preview{background:#111;border-radius:6px;width:280px;position:fixed;bottom:44px;left:10px}#preview.big{pointer-events:none;border:2px solid #ffffff59;width:min(38vw,720px);top:84px;bottom:auto;box-shadow:0 6px 24px #00000080}.hidden{display:none!important}</style>
+    <script type="module" crossorigin src="./assets/index-Bg3PW0c5.js"></script>
+  </head>
+  <body>
+    <canvas id="view"></canvas>
+    <video id="cam" playsinline muted class="hidden"></video>
+    <canvas id="preview" class="hidden"></canvas>
+    <div id="status"></div>
+  </body>
+</html>
